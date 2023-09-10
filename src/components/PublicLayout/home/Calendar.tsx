@@ -3,8 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import dayjs, { buildCalendar } from "../../../lib/day";
 import CalendarDay, { Overtime } from "./CalendarDay";
 import { calendarStore } from "../../../hooks/calendarStore";
-import { ref, get } from "firebase/database";
-import { db } from "../../../lib/firebase";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 
 export default function Calendar() {
@@ -13,19 +11,14 @@ export default function Calendar() {
   const dates = buildCalendar(selectedYear, selectedMonth);
 
   const key = `${selectedYear}-${selectedMonth}`;
-  const { data, isLoading } = useQuery<Record<number, Overtime>>(
-    [key],
-    async () => {
-      const overtimeRef = ref(db, `overtime-control/${key}`);
-      const snapshot = await get(overtimeRef);
-      return snapshot.toJSON() as Record<number, Overtime>;
-    }
-  );
+  const { data, isLoading, isFetching } = useQuery<Record<number, Overtime>>([
+    key,
+  ]);
 
   return (
     <div
       className={`w-screen h-screen ${
-        !isLoading ? "bg-slate-300" : "bg-red-300"
+        !isLoading || isFetching ? "bg-slate-300" : "bg-red-300"
       } flex flex-col `}
     >
       <div className="flex">

@@ -1,18 +1,23 @@
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getSumTotalTime } from "../../../utils/dateFns";
 import { loginStore } from "../../../hooks/loginStore";
 import { calendarStore } from "../../../hooks/calendarStore";
 import { Overtime } from "./CalendarDay";
 import dayjs from "../../../lib/day";
 import { RiLogoutBoxRFill } from "react-icons/ri";
+import { get, ref } from "firebase/database";
+import { db } from "../../../lib/firebase";
 
 export default function HomeHeader() {
   const { setLogged } = loginStore();
   const { selectedMonth, selectedYear } = calendarStore();
-  const client = useQueryClient();
-  const key = [`${selectedYear}-${selectedMonth}`];
-
-  const overtimes = client.getQueryData<Record<number, Overtime>>(key);
+  const key = `${selectedYear}-${selectedMonth}`;
+  const { data } = useQuery<Record<number, Overtime>>([key], async () => {
+    const overtimeRef = ref(db, `overtime-control/${key}`);
+    const snapshot = await get(overtimeRef);
+    return snapshot.toJSON() as Record<number, Overtime>;
+  });
+  const overtimes = data;
   const times =
     overtimes &&
     Object.values(overtimes)
