@@ -55,31 +55,30 @@ export default function CalendarDay({
           : "md:border-2 border-black"
       } border-solid flex p-1 md:px-2 flex-col`}
     >
-      <div className="flex flex-col md:flex-row glow ">
+      <div className="flex flex-col md:flex-row md:grow  ">
         <h1
-          className={`text-sm text-center md:text-2xl grow font-bold capitalize mb-1 ${
-            disabled ? "text-gray-400" : ""
+          className={`flex flex-col md:flex-row md:justify-center md:gap-1  text-sm text-center md:text-2xl md:grow font-bold capitalize mb-1 text ${
+            disabled
+              ? dayjs(date).day() === 0 || dayjs(date).day() === 6
+                ? "text-red-200"
+                : "text-gray-400"
+              : dayjs(date).day() === 0 || dayjs(date).day() === 6
+              ? "text-red-500"
+              : ""
           }`}
         >
-          {dayjs(date).format("DD MMM")}
+          <span>{dayjs(date).format("DD")}</span>
+          <span>{dayjs(date).format("MMM")}</span>
         </h1>
-        {!inputtedTime ? (
-          <button
-            onClick={openCalendarPopup}
-            className="hidden md:flex w-5 h-5 top-0 bg-green-600 text-xs my-auto font-bold rounded-lg text-white"
-          >
-            <FaPlus className="m-auto" />
-          </button>
-        ) : (
-          <button
-            onClick={openCalendarPopup}
-            className="hidden md:flex w-5 h-5 top-0 bg-sky-500 text-xs my-auto font-bold rounded-lg text-white"
-          >
-            <FaEdit className="m-auto" />
-          </button>
-        )}
+
+        <button
+          onClick={openCalendarPopup}
+          className="hidden md:flex w-5 h-5 mt-2 bg-sky-500 text-xs  font-bold rounded-lg text-white"
+        >
+          <FaEdit className="m-auto" />
+        </button>
       </div>
-      <div className="flex grow ">
+      <div className="hidden md:flex grow  ">
         <div
           className={`flex flex-col w-full 
           rounded-md text-white`}
@@ -110,16 +109,19 @@ export default function CalendarDay({
             )}
         </div>
       </div>
-      <div className="flex justify-end ">
-        <h1
-          className={`hidden md:flex text-xs my-auto mr-3 font-bold ${
-            !disabled ? "text-gray-900" : "text-gray-500"
-          } `}
-        >
-          Total :
-        </h1>
+      <div className="flex justify-center md:justify-end items-center">
+        {overtime?.totalTime && (
+          <h1
+            className={`hidden md:flex text-2xl my-auto mr-3 font-bold ${
+              !disabled ? "text-gray-900 my-auto" : "text-gray-500"
+            } `}
+          >
+            Total :
+          </h1>
+        )}
+
         <span
-          className={`text-xs md:text-base mt-2 md:mt-0 font-bold ${
+          className={`md:flex text-base md:text-2xl mt-2 md:mt-0 font-bold ${
             !disabled ? "text-blue-500" : "text-blue-300"
           } `}
         >

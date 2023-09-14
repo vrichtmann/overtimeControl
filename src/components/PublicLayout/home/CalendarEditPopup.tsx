@@ -35,7 +35,7 @@ export default function CalendarEditPopup() {
         startDate: selectedStartTime,
         endDate: selectedEndTime,
         selectedDraft,
-        totalTime, // TODO sum
+        totalTime,
       }
     );
     client.invalidateQueries(key);

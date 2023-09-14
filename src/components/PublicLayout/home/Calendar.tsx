@@ -22,30 +22,30 @@ export default function Calendar() {
       } flex flex-col `}
     >
       <div className="flex">
-        <div className="fixed top-1/2 left-1 md:left-4 cursor-pointer">
+        <div className="fixed bottom-0 md:bottom-auto md:top-1/2 left-1 md:left-4 cursor-pointer">
           <div
             onClick={() => {
               changeMonth(true);
             }}
-            className="text-3xl opacity-90 md:text-5xl font-bold text-rose-600 bg-white rounded-full  border-2 border-solid border-black "
+            className="text-6xl md:text-7xl opacity-80 md:opacity-90  font-bold text-rose-600 bg-white rounded-full  border-2 border-solid border-black "
           >
             <BiLeftArrowAlt />
           </div>
         </div>
 
-        <div className="fixed top-1/2 right-1 md:right-5  cursor-pointer">
+        <div className="fixed bottom-0 md:bottom-auto md:top-1/2 right-1 md:right-5  cursor-pointer">
           <div
             onClick={() => {
               changeMonth(false);
             }}
-            className="text-3xl opacity-90 md:text-5xl font-bold text-rose-600 bg-white rounded-full border-2 border-solid border-black "
+            className="text-6xl md:text-7xl opacity-80 md:opacity-90  font-bold text-rose-600 bg-white rounded-full border-2 border-solid border-black "
           >
             <BiRightArrowAlt className="m-auto" />
           </div>
         </div>
       </div>
 
-      <div className="w-full md:w-11/12 h-[1/6 ] overflow-hidden md:h-[95%] bg-white m-auto border md:border-2 border-gray-800 border-solid flex flex-col">
+      <div className="w-full md:w-11/12 h-[1/6] overflow-hidden md:h-[95%] bg-white m-auto border md:border-2 border-gray-800 border-solid flex flex-col">
         <div className="w-full flex ">
           {dayjs.weekdaysShort().map((day) => (
             <CalendarHeader key={day} weekday={day} />
