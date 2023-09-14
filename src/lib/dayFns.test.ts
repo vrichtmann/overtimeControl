@@ -7,7 +7,7 @@ describe("dayFns espec", () => {
             expect(buildCalendar(2023, 3).length).toEqual(42);
         })
         it("check first date", ()=>{
-            expect(buildCalendar(2023, 3)[0].getDate()).toEqual(29);
+            expect(buildCalendar(2023, 3)[0].getDate()).toEqual(26);
         })
     })
 })

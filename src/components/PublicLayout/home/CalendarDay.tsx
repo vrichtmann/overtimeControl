@@ -1,6 +1,5 @@
-import { useState } from "react";
 import dayjs from "../../../lib/day";
-import { FaEdit, FaPlus } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 import { calendarStore } from "../../../hooks/calendarStore";
 
 type CalendarDayProps = {
@@ -24,7 +23,6 @@ export default function CalendarDay({
 }: CalendarDayProps) {
   const isToday = dayjs(date).isSame(new Date(), "day");
 
-  const [inputtedTime] = useState<boolean>(true);
   const { setCalendarPopupIsOpen, changeMonth, selectedMonth, selectedYear } =
     calendarStore();
 
