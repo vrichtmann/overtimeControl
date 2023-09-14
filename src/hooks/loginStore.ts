@@ -1,11 +1,11 @@
 import { create } from "zustand";
 
 type LoginState = {
-  logged: boolean;
-  setLogged: (loginState: boolean) => void;
+  isLoading: boolean;
+  setIsLoading: (loadingState: boolean) => void;
 };
 
 export const loginStore = create<LoginState>((set) => ({
-  logged: Boolean(localStorage.getItem("signed")),
-  setLogged: (loginState: boolean) => set(() => ({ logged: loginState })),
+  isLoading: true,
+  setIsLoading: (loadingState: boolean) => set(() => ({ isLoading: loadingState })),
 }));

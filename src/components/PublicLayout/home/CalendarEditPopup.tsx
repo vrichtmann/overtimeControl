@@ -90,7 +90,7 @@ export default function CalendarEditPopup() {
               <div className="flex flex-col md:flex-row justify-center gap-5 p-4 mt-2">
                 <div className="flex flex-col md:flex-row">
                   <h1 className="text-blue-500 font-bold text-2xl m-auto">
-                    Start Time
+                    Hora Inicial
                   </h1>
                   <input
                     className="border-2 border-solid border-black rounded-md md:ml-4 mt-2 md:mt-0 font-bold p-2 text-center"
@@ -111,7 +111,7 @@ export default function CalendarEditPopup() {
                 </div>
                 <div className="flex flex-col md:flex-row">
                   <h1 className="text-red-500 font-bold text-2xl m-auto">
-                    End Time
+                    Hora Final
                   </h1>
                   <input
                     className="border-2 border-solid border-black rounded-md md:ml-4 mt-2 md:mt-0 font-bold p-2 text-center"
@@ -132,7 +132,7 @@ export default function CalendarEditPopup() {
                 </div>
                 <div className="flex flex-col md:flex-row">
                   <h1 className="text-green-600 font-bold text-2xl m-auto">
-                    Total Time
+                    Total Horas
                   </h1>
                   <input
                     className="border-2 border-solid border-black rounded-md md:ml-4 mt-2 md:mt-0 font-bold p-2 text-center"
@@ -169,14 +169,14 @@ export default function CalendarEditPopup() {
                 disabled={isLoading || isDeleting}
                 className="bg-rose-600 disabled:bg-rose-100 p-4 border-2 border-solid border-stone-800 rounded-lg text-white text-base font-bold"
               >
-                Deletar Horario
+                Apagar
               </button>
               <button
                 disabled={isLoading || isDeleting}
                 onClick={() => mutate()}
                 className="bg-sky-500 disabled:bg-sky-200 p-4 border-2 border-solid border-stone-800 rounded-lg text-white text-base font-bold"
               >
-                Save
+                Salvar
               </button>
             </div>
           </div>

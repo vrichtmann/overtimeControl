@@ -1,13 +1,32 @@
+import { onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState } from "react";
 import Login from "./pages/login";
 import Home from "./pages/home";
 import { loginStore } from "./hooks/loginStore";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { auth } from "./lib/firebase";
+import { FullScreenLoading } from "./pages/FullScreenLoading";
 
 const queryClient = new QueryClient();
 
 function App() {
-  const { logged } = loginStore();
+  const { isLoading, setIsLoading } = loginStore();
+  const [logged, setLogged] = useState<boolean>(true);
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setLogged(true);
+      } else {
+        setLogged(false);
+      }
+      setIsLoading(false);
+    });
+  }, []);
+
+  if (isLoading) {
+    return <FullScreenLoading />;
+  }
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />

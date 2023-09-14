@@ -1,21 +1,16 @@
 import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../lib/firebase";
 import { loginStore } from "../hooks/loginStore";
 
 export default function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { setLogged } = loginStore();
+  const { setIsLoading } = loginStore();
 
-  const Login = () => {
-    if (
-      email === import.meta.env.VITE_LOGIN_EMAIL &&
-      password === import.meta.env.VITE_LOGIN_PASSWORD
-    ) {
-      setLogged(true);
-      localStorage.setItem("signed", "1");
-    } else {
-      alert("Usuário ou senha não existe");
-    }
+  const login = async () => {
+    setIsLoading(true);
+    const user = await signInWithEmailAndPassword(auth, email, password);
   };
 
   return (
@@ -33,7 +28,7 @@ export default function Login() {
           <input
             className="w-full mt-10 p-4 rounded-lg md:w-96"
             id="username"
-            type="text"
+            type="email"
             value={email}
             placeholder="email"
             onChange={(e) => {
@@ -58,7 +53,7 @@ export default function Login() {
         <div className="mt-10 mb-2">
           <button
             className="bg-blue-500 w-full rounded-lg W-60 p-4 md:w-96 text-white text-xl font-bold"
-            onClick={Login}
+            onClick={login}
           >
             Login
           </button>

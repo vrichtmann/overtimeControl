@@ -1,15 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { getSumTotalTime } from "../../../utils/dateFns";
-import { loginStore } from "../../../hooks/loginStore";
 import { calendarStore } from "../../../hooks/calendarStore";
 import { Overtime } from "./CalendarDay";
 import dayjs from "../../../lib/day";
 import { RiLogoutBoxRFill } from "react-icons/ri";
 import { get, ref } from "firebase/database";
-import { db } from "../../../lib/firebase";
+import { db, auth } from "../../../lib/firebase";
+import { signOut } from "firebase/auth";
 
 export default function HomeHeader() {
-  const { setLogged } = loginStore();
   const { selectedMonth, selectedYear } = calendarStore();
   const key = `${selectedYear}-${selectedMonth}`;
   const { data } = useQuery<Record<number, Overtime>>([key], async () => {
@@ -37,13 +36,7 @@ export default function HomeHeader() {
         </span>
       </div>
       <div className="w-1/3 flex justify-end pr-2 my-auto">
-        <button
-          className="text-right flex"
-          onClick={() => {
-            localStorage.setItem("signed", "");
-            setLogged(false);
-          }}
-        >
+        <button className="text-right flex" onClick={() => signOut(auth)}>
           <RiLogoutBoxRFill className="text-3xl" />
           <span className="hidden md:flex text-lg">Logout</span>
         </button>
