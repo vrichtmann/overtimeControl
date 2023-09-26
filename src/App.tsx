@@ -11,11 +11,12 @@ import { FullScreenLoading } from "./pages/FullScreenLoading";
 const queryClient = new QueryClient();
 
 function App() {
-  const { isLoading, setIsLoading } = loginStore();
+  const { isLoading, setIsLoading, setUserID } = loginStore();
   const [logged, setLogged] = useState<boolean>(true);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
+        setUserID(user.uid);
         setLogged(true);
       } else {
         setLogged(false);

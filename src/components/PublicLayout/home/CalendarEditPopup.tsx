@@ -6,6 +6,7 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { calendarStore } from "../../../hooks/calendarStore";
 import { db } from "../../../lib/firebase";
 import { getTotalTime } from "../../../utils/dateFns";
+import { loginStore } from "../../../hooks/loginStore";
 
 export default function CalendarEditPopup() {
   const {
@@ -24,12 +25,13 @@ export default function CalendarEditPopup() {
   } = calendarStore();
   const client = useQueryClient();
   const key = [`${selectedYear}-${selectedMonth}`];
+  const { userId } = loginStore();
 
   const saveData = async () => {
     await set(
       ref(
         db,
-        `overtime-control/${selectedYear}-${selectedMonth}/${selectedDay}`
+        `overtime-control/${userId}/${selectedYear}-${selectedMonth}/${selectedDay}`
       ),
       {
         startDate: selectedStartTime,
@@ -46,7 +48,7 @@ export default function CalendarEditPopup() {
     await remove(
       ref(
         db,
-        `overtime-control/${selectedYear}-${selectedMonth}/${selectedDay}`
+        `overtime-control/${userId}/${selectedYear}-${selectedMonth}/${selectedDay}`
       )
     );
     client.invalidateQueries(key);

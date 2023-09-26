@@ -7,12 +7,14 @@ import { RiLogoutBoxRFill } from "react-icons/ri";
 import { get, ref } from "firebase/database";
 import { db, auth } from "../../../lib/firebase";
 import { signOut } from "firebase/auth";
+import { loginStore } from "../../../hooks/loginStore";
 
 export default function HomeHeader() {
+  const { userId } = loginStore();
   const { selectedMonth, selectedYear } = calendarStore();
   const key = `${selectedYear}-${selectedMonth}`;
   const { data } = useQuery<Record<number, Overtime>>([key], async () => {
-    const overtimeRef = ref(db, `overtime-control/${key}`);
+    const overtimeRef = ref(db, `overtime-control/${userId}/${key}`);
     const snapshot = await get(overtimeRef);
     return snapshot.toJSON() as Record<number, Overtime>;
   });

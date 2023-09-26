@@ -2,6 +2,7 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../lib/firebase";
 import { loginStore } from "../hooks/loginStore";
+import { FirebaseError } from "firebase/app";
 
 export default function Login() {
   const [email, setEmail] = useState<string>("");
@@ -10,7 +11,21 @@ export default function Login() {
 
   const login = async () => {
     setIsLoading(true);
-    const user = await signInWithEmailAndPassword(auth, email, password);
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      setIsLoading(false);
+
+      const firebaseError = error as FirebaseError;
+      if (firebaseError) {
+        if (ERROR_MESSAGES[firebaseError.code as keyof typeof ERROR_MESSAGES]) {
+          alert(
+            ERROR_MESSAGES[firebaseError.code as keyof typeof ERROR_MESSAGES]
+          );
+        }
+      }
+    }
   };
 
   return (
@@ -62,3 +77,9 @@ export default function Login() {
     </div>
   );
 }
+
+const ERROR_MESSAGES = {
+  ["auth/invalid-login-credentials"]: "O Email ou usuário estão incorretos!",
+  ["auth/missing-password"]: "Insira sua senha",
+  ["auth/invalid-email"]: "Insira seu email",
+};
