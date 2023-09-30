@@ -3,7 +3,7 @@ export function milisecondsToHours(miliseconds:number){
     const seconds = Math.floor(miliseconds / 1000);
     const minutes = Math.floor(seconds / 60) ;
     const hours = Math.floor(minutes / 60) ;
-    return `${padTo2Digits(hours % 60)}:${padTo2Digits(minutes% 60)}`
+    return `${padTo2Digits(hours)}:${padTo2Digits(minutes% 60)}`
 }
 
 function padTo2Digits(num:number){
