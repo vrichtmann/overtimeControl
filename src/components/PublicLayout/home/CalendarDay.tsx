@@ -51,11 +51,11 @@ export default function CalendarDay({
         isToday
           ? "bg-purple-100 md:bg-white border-1 md:border-4 border-black md:border-cyan-500"
           : "md:border-2 border-black"
-      } border-solid flex p-1 md:px-2 flex-col`}
+      } border-solid flex px-0 pt-0.5 md:pt-1 pb-1 md:px-2 flex-col`}
     >
       <div className="flex flex-col md:flex-row md:grow  ">
         <h1
-          className={`flex flex-col md:flex-row md:justify-center md:gap-1  text-sm text-center md:text-2xl md:grow font-bold capitalize mb-1 text ${
+          className={`flex gap-1 md:flex-row justify-center md:gap-1 text-xs text-center md:text-2xl md:grow font-bold capitalize mb-1 text ${
             disabled
               ? dayjs(date).day() === 0 || dayjs(date).day() === 6
                 ? "text-red-200"
@@ -76,13 +76,13 @@ export default function CalendarDay({
           <FaEdit className="m-auto" />
         </button>
       </div>
-      <div className="hidden md:flex grow  ">
+      <div className="md:flex grow  ">
         <div
           className={`flex flex-col w-full 
           rounded-md text-white`}
         >
           {overtime && (
-            <div id={overtime.id} className="flex w-full">
+            <div id={overtime.id} className="hidden md:flex w-full">
               <h1
                 className={`flex-col text-center  md:flex justify-center text-sm md:text-base ml-1 grow ${
                   !disabled ? "text-zinc-950" : "text-zinc-500"
@@ -98,9 +98,9 @@ export default function CalendarDay({
             overtime?.selectedDraft &&
             overtime?.selectedDraft?.length > 0 && (
               <p
-                className={`hidden md:flex h-9 overflow-y-scroll ${
+                className={`text-xs md:text-base md:flex h-11 md:h-9 overflow-y-scroll ${
                   !disabled ? "text-gray-950" : "text-zinc-500"
-                }  px-2 bg-local`}
+                } px-0 md:px-2 bg-local`}
               >
                 {overtime?.selectedDraft}
               </p>
@@ -119,7 +119,7 @@ export default function CalendarDay({
         )}
 
         <span
-          className={`md:flex text-base md:text-2xl mt-2 md:mt-0 font-bold ${
+          className={`md:flex text-base md:text-2xl mt-0.5 md:mt-2 md:mt-0 font-bold ${
             !disabled ? "text-blue-500" : "text-blue-300"
           } `}
         >
